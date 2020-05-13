@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-test.yaml
+  - changeSet:
+      id: create_tables
+      author: nemezis
+      changes:
+        - createTable:
+            tableName: polls
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_of_poll
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: activity
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: question_of_poll
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: poll
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: poll_link
+                    references: polls(id)
+                    nullable: false
+              - column:
+                  name: text_poll
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: fill_table_1
+      author: nemezis
+      changes:
+        - insert:
+            tableName: polls
+            columns:
+              - column:
+                  name: name_of_poll
+                  value: "First test poll"
+              - column:
+                  name: start_date
+                  value: "2020-05-01"
+              - column:
+                  name: end_date
+                  value: "2020-05-31"
+              - column:
+                  name: activity
+                  value: "true"
+        - insert:
+            tableName: polls
+            columns:
+              - column:
+                  name: name_of_poll
+                  value: "Second test poll"
+              - column:
+                  name: start_date
+                  value: "2020-06-01"
+              - column:
+                  name: end_date
+                  value: "2020-06-30"
+              - column:
+                  name: activity
+                  value: "true"
+
+  - changeSet:
+      id: fill_table_2
+      author: nemezis
+      changes:
+        - insert:
+            tableName: question_of_poll
+            columns:
+              - column:
+                  name: poll
+                  value: 1
+              - column:
+                  name: text_poll
+                  value: "Text poll for first poll"
+
+        - insert:
+            tableName: question_of_poll
+            columns:
+              - column:
+                  name: poll
+                  value: 2
+              - column:
+                  name: text_poll
+                  value: "Text poll for second poll"
+
+      rollback:
+        - delete:
+            tableName: polls, question_of_poll
+            where: username in ('admin', 'guest')
