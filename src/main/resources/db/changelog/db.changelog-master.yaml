@@ -57,11 +57,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: order
+                  name: order_num
                   type: BIGINT
                   autoIncrement: true
                   constraints:
-                    nullable: false
+                    nullable: true
 
   - changeSet:
       id: fill_table_1
@@ -72,7 +72,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: name_of_poll
-                  value: "First test poll"
+                  value: "Опрос №1"
               - column:
                   name: start_date
                   value: "2020-05-01"
@@ -87,13 +87,43 @@ databaseChangeLog:
             columns:
               - column:
                   name: name_of_poll
-                  value: "Second test poll"
+                  value: "Опрос №2"
               - column:
                   name: start_date
                   value: "2020-06-01"
               - column:
                   name: end_date
                   value: "2020-06-30"
+              - column:
+                  name: activity
+                  value: "true"
+        - insert:
+            tableName: polls
+            columns:
+              - column:
+                  name: name_of_poll
+                  value: "Опрос №3"
+              - column:
+                  name: start_date
+                  value: "2020-07-01"
+              - column:
+                  name: end_date
+                  value: "2020-07-31"
+              - column:
+                  name: activity
+                  value: "true"
+        - insert:
+            tableName: polls
+            columns:
+              - column:
+                  name: name_of_poll
+                  value: "Опрос №1"
+              - column:
+                  name: start_date
+                  value: "2020-05-01"
+              - column:
+                  name: end_date
+                  value: "2020-07-31"
               - column:
                   name: activity
                   value: "true"
@@ -110,7 +140,7 @@ databaseChangeLog:
                   value: 1
               - column:
                   name: text_poll
-                  value: "Text poll for first poll"
+                  value: "Текст для первого опроса"
 
         - insert:
             tableName: question_of_poll
@@ -120,7 +150,27 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: text_poll
-                  value: "Text poll for second poll"
+                  value: "Текст для второго опроса"
+
+        - insert:
+            tableName: question_of_poll
+            columns:
+              - column:
+                  name: poll
+                  value: 3
+              - column:
+                  name: text_poll
+                  value: "Текст для третьего опроса"
+
+        - insert:
+            tableName: question_of_poll
+            columns:
+              - column:
+                  name: poll
+                  value: 4
+              - column:
+                  name: text_poll
+                  value: "Текст для дублированного опроса (тест для фильтра по дате и названию)"
 
       rollback:
         - delete:

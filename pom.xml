@@ -21,6 +21,18 @@
 
 
 	<dependencies>
+		<!--criteria classes-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>5.3.7.Final</version>
+		</dependency>
+		<!--mapping-->
+		<dependency>
+			<groupId>ma.glasnost.orika</groupId>
+			<artifactId>orika-core</artifactId>
+			<version>1.4.6</version>
+		</dependency>
 
 		<!--swagger-->
 		<dependency>
